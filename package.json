@@ -1,0 +1,29 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "4.4.7"
+  },
+  "dependencies": {
+    "body-parser": "~1.14.0",
+    "cookie-parser": "~1.4.0",
+    "cookie-session": "~1.2.0",
+    "ejs": "^2.5.5",
+    "express": "~4.13.3",
+    "express-session": "^1.15.1",
+    "jade": "*",
+    "morgan": "~1.6.1",
+    "nconf": "~0.8.0",
+    "oauth": "~0.9.14",
+    "shopify-api-node": "^2.3.0",
+    "shopify-token": "^3.0.0",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

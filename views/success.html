@@ -1,0 +1,28 @@
+<html>
+<head>
+    
+    <link rel ="stylesheet" href="/stylesheets/style.css" />
+    <script type="text/javascript" src='https://cdn.shopify.com/s/assets/external/app.js' ></script>
+    <script>    
+
+      ShopifyApp.init({
+        
+        apiKey: '<%= apiKey %>',
+        shopOrigin: '<%= shopUrl %>',
+        debug: true,
+        forceRedirect: false
+
+      });
+
+      ShopifyApp.ready(function(){
+            ShopifyApp.Bar.loadingOff();
+            ShopifyApp.Bar.initialize({
+                title: '<%= title %>',
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>The app has been installed!</h1>
+</body>
+</html>

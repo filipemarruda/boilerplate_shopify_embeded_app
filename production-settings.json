@@ -1,0 +1,9 @@
+{
+    "oauth": {
+        "appName" : "[appName]",
+        "api_key": "****",
+        "client_secret": "****",
+        "redirect_url": "https://[appur]/auth_token",
+        "scope": "read_products"
+    }
+}
