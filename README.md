@@ -19,7 +19,7 @@ Shopify Embedded App in Node.js
 ```
     http://myamazingapp.com/
 ```
-To install the app as a private apps, access the root of your app with a ```shop``` url parameter having the domain name of your store, example:
+To install the app as a private app, access the root of your app with a ```shop``` url parameter having the domain name of your store, example:
 ```
     http://myamazingapp.com/?shop=myamazingstore.myshopify.com
 ```
