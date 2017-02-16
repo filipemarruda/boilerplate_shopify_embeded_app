@@ -24,31 +24,33 @@
           buttons: {
 
             primary: {
-              label: "Save",
-              message: 'bar_save'
+              label: "Save", 
+              callback: function(message, data) {
+                ShopifyApp.Modal.open({
+                  src: '/showProductId?product_id=<%= productId%>',
+                  title: 'Product Id',
+                  width: 'small',
+                  height: 300,
+                  buttons: {
+                    primary: { label: "OK" },
+                    secondary: [
+                      { label: "Cancel", callback: function (label) { ShopifyApp.Modal.close(); } }
+                    ]
+                  }
+                });
+              }
             },
 
             secondary: [
               { 
                 label: "Cancel", 
-                href: 'bar_cancel'
+                target: "shopify",
+                href : "/products/<%= productId%>"
               },
               { 
                 label: "Preview", 
-                callback: function() {
-                  ShopifyApp.Modal.open({
-                    src: '/showProductId?product_id=<%= productId%>',
-                    title: 'Product Id',
-                    width: 'small',
-                    height: 300,
-                    buttons: {
-                      primary: { label: "OK" },
-                      secondary: [
-                        { label: "Cancel", callback: function (label) { ShopifyApp.Modal.close(); } }
-                      ]
-                    }
-                  });
-                }
+                target: "new",
+                href: "/products/<%= title%>"
               }
             ]
 

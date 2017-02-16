@@ -21,7 +21,7 @@ var Shopify = require('shopify-api-node');
 exports.index = function(req, res){
 
     var parsedUrl = url.parse(req.originalUrl, true);
-    
+
     if(!parsedUrl.query.shop){
         
         res.render('error');
@@ -47,17 +47,14 @@ exports.index = function(req, res){
 
         } else {
 
-            var product_id = parsedUrl.query.id || req.session.product_id;
-            delete req.session.product_id;
-
-            if (product_id) {
+            if (parsedUrl.query.id) {
 
                 const shopify = new Shopify({
                     shopName: shopName,
                     accessToken: req.session.oauth_access_token
                 });
                 
-                shopify.product.get(product_id).then((product) => {
+                shopify.product.get(parsedUrl.query.id).then((product) => {
                     
                     res.render('app_view', {
                         productId: product.id,
@@ -100,12 +97,21 @@ this.getAccessToken = function(req, res) {
     app.shopifyToken.getAccessToken(parsedUrl.query.shop, parsedUrl.query.code).then((token) => {
         
         req.session.oauth_access_token = token;
-        res.redirect(shopUrl + '/admin/apps/' + app.nconf.get('oauth:appName') + "?shop=" + parsedUrl.query.shop);
+        var product_id = req.session.product_id;
+        delete req.session.product_id;
+        var query = "?shop=" + parsedUrl.query.shop + (product_id ? "&id=" + product_id : "");
+        var referedPasedUrl = url.parse(req.headers.referer, true);
+
+        if(referedPasedUrl.pathname == '/admin/oauth/authorize'){
+            res.redirect(shopUrl + "/admin/apps/" + app.nconf.get('oauth:appName') + query);
+        }else{
+            res.redirect("/" + query);
+        }
 
     }).catch((err) => {
         
-        res.send(500);
         console.err(err);
+        res.send(500);
         return;
 
     });
