@@ -5,6 +5,35 @@
     <script type="text/javascript" src='https://cdn.shopify.com/s/assets/external/app.js' ></script>
     <script>    
 
+      var globalContext = {};
+      globalContext.dumbFunction = function(){
+        
+        var self = this;
+
+        ShopifyApp.Modal.open({
+          src: '/showProductId?product_id=<%= productId%>',
+          title: 'Product Id',
+          width: 'small',
+          height: 300,
+          buttons: {
+            primary: { label: "OK" },
+            secondary: [
+              { 
+                label: "Cancel", callback: function (label) { 
+                  var date = new Date();
+                  self.changeText("New text: " + date.getTime());
+                  ShopifyApp.Modal.close(); 
+                } 
+              }
+            ]
+          }
+        });
+      }
+
+      globalContext.changeText = function(newText){
+        document.getElementById("paragrafo").innerHTML = newText;
+      }
+
       ShopifyApp.init({
         
         apiKey: '<%= apiKey %>',
@@ -18,7 +47,7 @@
         
         ShopifyApp.Bar.initialize({
           
-          icon: 'https://jprivillasoshopify.herokuapp.com/images/favicon.png',
+          icon: '/images/favicon.png',
           title: '<%= title %>',
           
           buttons: {
@@ -26,18 +55,7 @@
             primary: {
               label: "Save", 
               callback: function(message, data) {
-                ShopifyApp.Modal.open({
-                  src: '/showProductId?product_id=<%= productId%>',
-                  title: 'Product Id',
-                  width: 'small',
-                  height: 300,
-                  buttons: {
-                    primary: { label: "OK" },
-                    secondary: [
-                      { label: "Cancel", callback: function (label) { ShopifyApp.Modal.close(); } }
-                    ]
-                  }
-                });
+                globalContext.dumbFunction();
               }
             },
 
@@ -65,6 +83,10 @@
     </script>
   </head>
 
-  <body></body>
+  <body>
+
+    <p id="Paragrafo">Dumb Text</p>
+
+  </body>
 
 </html>
